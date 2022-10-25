@@ -12,10 +12,17 @@ import RegisterPage from './pages/RegisterPage';
 function App() {
   const authedUser = false;
 
+
+
   return (
     <div className="app-container">
       <header className='note-app__header'>
-        <Navigation />
+        {
+          
+          <Navigation authed={authedUser} />
+          
+        }
+        
       </header>
       <main>
         {authedUser ?
