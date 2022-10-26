@@ -4,7 +4,7 @@ import { FiLogOut } from 'react-icons/fi';
 import { FaMoon } from "react-icons/fa";
 // import { LocaleConsumer } from '../contexts/LocaleContext';
 
-function Navigation({authedUser}) {
+function Navigation({authed}) {
   return (
     <nav className="navigation">
       <ul className='nav-link'>
@@ -12,7 +12,7 @@ function Navigation({authedUser}) {
         <li><FaMoon /></li>
         <li>En</li>
         {
-          authedUser ?
+          authed ?
           <>
             <li><Link to="/add">Add Note</Link></li>
             <li><Link to="/archive">Archived Note</Link></li>

@@ -27,18 +27,19 @@
   }
   
   a {
-    color: var(--on-background);
     text-decoration: none;
   }
-  
   
   body {
     font-family: 'Inter', sans-serif;
   }
+
+  img{
+    width: 100%;
+  }
   
   .app-container {
-    color: var(--on-background);
-    background-color: var(--background);
+    background-color: gray;
     min-height: 100vh;
     transition: all ease-in-out 0.5s;
     display: flex;
@@ -48,8 +49,8 @@
   header {
     align-items: center;
     padding: 16px;
-    border-bottom: 1px solid var(--on-background);
-    background-color: maroon;
+    border-bottom: 1px solid black;
+    background-color: lightgray;
   }
   
   header .navigation ul li {
@@ -57,10 +58,10 @@
     font-size: 20px;
     margin: 0 20px;
     text-decoration: none;
-    color: white;
   }
 
   header .navigation ul li a {
+    color: black;
     padding: 5px;
   }
 
@@ -81,6 +82,11 @@
   .login-page h2, .register-page h2 {
     font-weight: normal;
   }
+
+  .login-page a, .register-page a{
+    font-weight: bold;
+    color: darkblue;
+  }
    
   .login-input, .register-input, .contact-input {
     margin-top: 16px;
@@ -95,6 +101,10 @@
     background-color: transparent;
     border: 2px dashed black;
     border-radius: 8px;
+  }
+
+  .login-input input::placeholder, .register-input input::placeholder{
+    color: black;
   }
    
   .login-input button, .register-input button, .contact-input button {
@@ -271,7 +281,7 @@
   }
 
   footer{
-    background-color: darkred;
+    background-color: #6d6d6d;
     font-size: 16px;
     text-align: center;
     padding: 8px;

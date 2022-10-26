@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import HomePage from './pages/HomePage';
@@ -8,21 +8,31 @@ import DetailPage from './pages/DetailPage';
 import NotFoundPage from './pages/NotFoundPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import { putAccessToken, getUserLogged } from './utils/network-data';
+import loading from './img/load.gif';
 
 function App() {
-  const authedUser = false;
+  const [authedUser, setAuthedUser] = useState(null);
+  //const [initializing, setInitializing] = useState(true);
 
+  async function onLoginSuccess({ accessToken }){
+    putAccessToken(accessToken);
+    const { data } = await getUserLogged();
+    setAuthedUser(data)
+    //setInitializing(false)
+    
+  }
 
+  // if (initializing) {
+  //   return (
+  //     <img src={loading} alt='loading'/>
+  //   )
+  // }
 
   return (
     <div className="app-container">
       <header className='note-app__header'>
-        {
-          
-          <Navigation authed={authedUser} />
-          
-        }
-        
+        <Navigation authed={authedUser} /> 
       </header>
       <main>
         {authedUser ?
@@ -34,11 +44,10 @@ function App() {
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
           : <Routes>
-              <Route path="*" element={<LoginPage />} />
+              <Route path="*" element={<LoginPage loginSuccess={onLoginSuccess} />} />
               <Route path="/register" element={<RegisterPage />} />
             </Routes>
-          }
-        
+          }  
       </main>
       <footer>R10. Zaidan Noor Irfan</footer>
     </div>
