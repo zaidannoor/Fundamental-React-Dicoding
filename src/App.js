@@ -9,25 +9,26 @@ import NotFoundPage from './pages/NotFoundPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { putAccessToken, getUserLogged } from './utils/network-data';
-import loading from './img/load.gif';
+import loading from './img/loading-gif.gif';
 
 function App() {
   const [authedUser, setAuthedUser] = useState(null);
-  //const [initializing, setInitializing] = useState(true);
+  const [initializing, setInitializing] = useState(false);
 
   async function onLoginSuccess({ accessToken }){
+    setInitializing(true)
     putAccessToken(accessToken);
     const { data } = await getUserLogged();
     setAuthedUser(data)
-    //setInitializing(false)
+    setInitializing(false)
     
   }
 
-  // if (initializing) {
-  //   return (
-  //     <img src={loading} alt='loading'/>
-  //   )
-  // }
+  if (initializing) {
+    return (
+      <img src={loading} alt='loading'/>
+    )
+  }
 
   return (
     <div className="app-container">

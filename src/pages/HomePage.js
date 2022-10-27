@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     getActiveNotes,
     deleteNote,
@@ -6,69 +6,52 @@ import {
   } from '../utils/network-data';
 import NoteList from '../components/NoteList';
 import SearchBar from '../components/SearchBar';
+import loading from '../img/loading-gif.gif';
 
-class HomePage extends React.Component {
-    constructor(props) {
-        super(props);
-    
-        this.state = {
-            notes: getActiveNotes(),
-            filteredNotes: '',
-            keyword: ''
-        }
-    
-        this.onDeleteHandler = this.onDeleteHandler.bind(this);
-        this.onArchiveHandler = this.onArchiveHandler.bind(this);
-        //this.onKeywordChangeHandler = this.onKeywordChangeHandler.bind(this);
-    }
-   
-    onDeleteHandler(id) {
+function HomePage(){
+    const [notes,setNotes] = useState(null)
+    const [keyword,setKeyword] = useState('')
+    /* Inisialisasi nilai Notes menggunakan react effect*/
+    useEffect(() => {
+        getActiveNotes().then(({ data }) => {
+          setNotes(data);
+        });
+    }, []);
+
+    async function onDeleteHandler(id) {
         const isConfirm = window.confirm("Are you sure want to DELETE this note ?");
-        if (isConfirm) deleteNote(id);    
-
-        // update the notes
-        this.setState(() => {
-            return {
-                notes: getActiveNotes(),
-                keyword: ''
-            }
-        });
+        if (isConfirm) await deleteNote(id);    
+        const {data} = await getActiveNotes()
+        setNotes(data)
     }
 
-    onArchiveHandler(id) {
+    async function onArchiveHandler(id) {
         const isConfirm = window.confirm("Are you sure want to ARCHIVE this note ?");
-        if (isConfirm) archiveNote(id);
-        
-        // update the notes
-        this.setState(() => {
-            return {
-                notes: getActiveNotes(),
-                keyword: ''
+        if (isConfirm) await archiveNote(id);
+        const {data} = await getActiveNotes();
+        setNotes(data);
+    }
+
+    function onKeywordChangeHandler(keyword) {
+        setKeyword(keyword);
+    }
+
+    return (
+        <section className='note-app'>
+            <h2>Active Notes</h2>
+            <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler} />
+            {notes  
+                ? <NoteList 
+                    notes={notes} 
+                    onDelete={onDeleteHandler} 
+                    onArchive={onArchiveHandler}
+                  />
+                : <img src={loading} alt='loading'/>
             }
-        });
-    }
-
-    // onKeywordChangeHandler(keyword) {
-    //     this.setState({
-    //         notes: getFilteredActiveNote(keyword),
-    //         keyword: keyword
-    //     });
-    // }
-
-    render() {
-        console.log(this.state.notes)
-        return (
-            <section className='note-app'>
-                <h2>Active Notes</h2>
-                <SearchBar keyword={this.state.keyword} keywordChange={this.onKeywordChangeHandler} />
-                <NoteList 
-                    notes={this.state.notes} 
-                    onDelete={this.onDeleteHandler} 
-                    onArchive={this.onArchiveHandler}
-                />
-            </section>
-        )
-    }
-  }
+              
+            {console.log(notes)}
+        </section>
+    )
+}
 
 export default HomePage;
