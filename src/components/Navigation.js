@@ -16,7 +16,7 @@ function Navigation({authed}) {
           <>
             <li><Link to="/add">Add Note</Link></li>
             <li><Link to="/archive">Archived Note</Link></li>
-            <li><FiLogOut /></li>
+            <li><FiLogOut /> Logout</li>
           </>
           : ''
         }

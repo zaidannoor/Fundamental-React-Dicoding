@@ -1,11 +1,9 @@
-
 import React from 'react';
 import {
     getActiveNotes,
     deleteNote,
     archiveNote,
-    getFilteredActiveNote,
-  } from '../utils/local-data';
+  } from '../utils/network-data';
 import NoteList from '../components/NoteList';
 import SearchBar from '../components/SearchBar';
 
@@ -17,12 +15,11 @@ class HomePage extends React.Component {
             notes: getActiveNotes(),
             filteredNotes: '',
             keyword: ''
-
         }
     
         this.onDeleteHandler = this.onDeleteHandler.bind(this);
         this.onArchiveHandler = this.onArchiveHandler.bind(this);
-        this.onKeywordChangeHandler = this.onKeywordChangeHandler.bind(this);
+        //this.onKeywordChangeHandler = this.onKeywordChangeHandler.bind(this);
     }
    
     onDeleteHandler(id) {
@@ -35,9 +32,7 @@ class HomePage extends React.Component {
                 notes: getActiveNotes(),
                 keyword: ''
             }
-        
         });
-        
     }
 
     onArchiveHandler(id) {
@@ -53,14 +48,15 @@ class HomePage extends React.Component {
         });
     }
 
-    onKeywordChangeHandler(keyword) {
-        this.setState({
-            notes: getFilteredActiveNote(keyword),
-            keyword: keyword
-        });
-    }
+    // onKeywordChangeHandler(keyword) {
+    //     this.setState({
+    //         notes: getFilteredActiveNote(keyword),
+    //         keyword: keyword
+    //     });
+    // }
 
     render() {
+        console.log(this.state.notes)
         return (
             <section className='note-app'>
                 <h2>Active Notes</h2>
