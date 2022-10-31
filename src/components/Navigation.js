@@ -4,7 +4,7 @@ import { FiLogOut } from 'react-icons/fi';
 import { FaMoon } from "react-icons/fa";
 import LocaleContext from '../context/LocaleContext';
 
-function Navigation({authed}) {
+function Navigation({authed, logout}) {
   const { locale, toggleLocale } = React.useContext(LocaleContext);
 
   return (
@@ -18,7 +18,7 @@ function Navigation({authed}) {
           <>
             <li><Link to="/add">Add Note</Link></li>
             <li><Link to="/archive">Archived Note</Link></li>
-            <li><FiLogOut /> Logout</li>
+            <li><button onClick={logout}><FiLogOut /> Logout</button></li>
           </>
           : ''
         }

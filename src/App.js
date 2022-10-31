@@ -38,6 +38,12 @@ function App() {
     };
   }, [locale]);
 
+  const onLogout = () => {
+    setAuthedUser(() => {
+      return null;
+    })
+  }
+
   
 
   if (initializing) {
@@ -50,7 +56,7 @@ function App() {
     <LocaleContext.Provider value={localeContextValue}>
       <div className="app-container">
         <header className='note-app__header'>
-          <Navigation authed={authedUser} /> 
+          <Navigation logout={onLogout} authed={authedUser} /> 
         </header>
         <main>
           {authedUser ?
