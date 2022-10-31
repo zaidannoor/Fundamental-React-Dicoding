@@ -2,15 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
 import { FaMoon } from "react-icons/fa";
-// import { LocaleConsumer } from '../contexts/LocaleContext';
+import LocaleContext from '../context/LocaleContext';
 
 function Navigation({authed}) {
+  const { locale, toggleLocale } = React.useContext(LocaleContext);
+
   return (
     <nav className="navigation">
       <ul className='nav-link'>
-        <li><h1><Link to="/">Note App</Link></h1></li>
+        <li><h1><Link to="/">{locale === 'id' ? 'Aplikasi Note' : 'Note App'}</Link></h1></li>
         <li><FaMoon /></li>
-        <li>En</li>
+        <li><button onClick={toggleLocale}>{locale === 'id' ? 'Indonesia' : 'English'}</button></li>
         {
           authed ?
           <>

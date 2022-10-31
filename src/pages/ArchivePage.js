@@ -11,27 +11,38 @@ import loading from '../img/loading-gif.gif';
 
 
 function ArchivePage(){
-    const [notes,setNotes] = useState(null)
-    const [keyword,setKeyword] = useState('')
+    const [notes,setNotes] = useState(null);
+    const [keyword,setKeyword] = useState('');
+    const [load, setLoad] = useState(true);
+
     /* Inisialisasi nilai Notes menggunakan react effect*/
     useEffect(() => {
         getArchivedNotes().then(({ data }) => {
           setNotes(data);
+          setLoad(false)
         });
     }, []);
 
     async function onDeleteHandler(id) {
         const isConfirm = window.confirm("Are you sure want to DELETE this note ?");
-        if (isConfirm) await deleteNote(id);    
-        const {data} = await getArchivedNotes()
-        setNotes(data)
+        if (isConfirm){
+            setLoad(true)
+            await deleteNote(id);   
+            const {data} = await getArchivedNotes()
+            setNotes(data)
+            setLoad(false)
+        } 
     }
 
     async function unarchiveHandler(id) {
         const isConfirm = window.confirm("Are you sure want to ARCHIVE this note ?");
-        if (isConfirm) await unarchiveNote(id);
-        const {data} = await getArchivedNotes();
-        setNotes(data);
+        if (isConfirm){
+            setLoad(true)
+            await unarchiveNote(id);
+            const {data} = await getArchivedNotes();
+            setNotes(data);
+            setLoad(false)
+        } 
     }
 
     function onKeywordChangeHandler(keyword) {
@@ -42,13 +53,14 @@ function ArchivePage(){
         <section className='note-app'>
             <h2>Archived Notes</h2>
             <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler} />
-            {notes  
-                ? <NoteList 
-                    notes={notes} 
-                    onDelete={onDeleteHandler} 
-                    unArchive={unarchiveHandler}
-                  />
-                : <img src={loading} alt='loading'/>
+            {load  
+                ? <img src={loading} alt='loading'/>
+                : <NoteList 
+                notes={notes} 
+                onDelete={onDeleteHandler} 
+                unArchive={unarchiveHandler}
+              />
+
             }
               
             {console.log(notes)}

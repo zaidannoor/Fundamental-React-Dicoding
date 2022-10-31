@@ -92,7 +92,7 @@ async function getActiveNotes() {
   if (responseJson.status !== 'success') {
     return { error: true, data: null };
   }
-  console.log(responseJson)
+  //console.log(responseJson)
   return { error: false, data: responseJson.data };
 }
 
@@ -103,7 +103,7 @@ async function getArchivedNotes() {
   if (responseJson.status !== 'success') {
     return { error: true, data: null };
   }
-
+  //console.log(responseJson)
   return { error: false, data: responseJson.data };
 }
 

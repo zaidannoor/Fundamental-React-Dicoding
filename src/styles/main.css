@@ -11,13 +11,13 @@
     --on-surface: #FFFFFF;
   }
   
-  [data-theme="light"] {
+  /* [data-theme="light"] {
     --background: #DDDDDD;
     --suface: #FFFFFF;
     --on-background: #333333;
     --on-background-grey: #6d6d6d;
     --on-surface: #333333;
-  }
+  } */
   
   * {
     padding: 0;
@@ -35,7 +35,9 @@
   }
 
   img{
-    width: 100%;
+    display: block;
+    margin: auto;
+    width: 20%;
   }
   
   .app-container {
@@ -66,9 +68,18 @@
   }
 
   header .navigation ul li a:hover {
-    color: maroon;
     background-color: white;
     border-radius: 10px;
+  }
+
+  .navigation button{
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px;
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
   }
 
   main {

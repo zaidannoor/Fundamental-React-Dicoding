@@ -11,25 +11,40 @@ import loading from '../img/loading-gif.gif';
 function HomePage(){
     const [notes,setNotes] = useState(null)
     const [keyword,setKeyword] = useState('')
+    const [load, setLoad] = useState(true);
+
     /* Inisialisasi nilai Notes menggunakan react effect*/
     useEffect(() => {
         getActiveNotes().then(({ data }) => {
           setNotes(data);
+          setLoad(false)
         });
     }, []);
 
     async function onDeleteHandler(id) {
         const isConfirm = window.confirm("Are you sure want to DELETE this note ?");
-        if (isConfirm) await deleteNote(id);    
-        const {data} = await getActiveNotes()
-        setNotes(data)
-    }
+        if (isConfirm){
+          setLoad(true)
+          await deleteNote(id);
+          const {data} = await getActiveNotes()
+          setNotes(data)
+          setLoad(false)
+        } 
+        
+        
+    }   
 
     async function onArchiveHandler(id) {
         const isConfirm = window.confirm("Are you sure want to ARCHIVE this note ?");
-        if (isConfirm) await archiveNote(id);
-        const {data} = await getActiveNotes();
-        setNotes(data);
+        if (isConfirm){
+          setLoad(true);
+          await archiveNote(id);
+          const {data} = await getActiveNotes();
+          setNotes(data);
+          setLoad(false);
+        } 
+        
+        
     }
 
     function onKeywordChangeHandler(keyword) {
@@ -40,13 +55,16 @@ function HomePage(){
         <section className='note-app'>
             <h2>Active Notes</h2>
             <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler} />
-            {notes  
-                ? <NoteList 
-                    notes={notes} 
-                    onDelete={onDeleteHandler} 
-                    onArchive={onArchiveHandler}
-                  />
-                : <img src={loading} alt='loading'/>
+            {load
+                ? 
+                <img src={loading} alt='loading'/>
+                : <NoteList 
+                notes={notes} 
+                onDelete={onDeleteHandler} 
+                onArchive={onArchiveHandler}
+                />
+                
+                
             }
               
             {console.log(notes)}
