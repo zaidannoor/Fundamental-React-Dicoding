@@ -1,29 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getNote } from '../utils/local-data';
+import { getNote } from '../utils/network-data';
 import NoteDetail from '../components/NoteDetail';
 import NotFoundPage from '../pages/NotFoundPage';
 import PropTypes from 'prop-types';
+import loading from '../img/loading-gif.gif';
 
-function DetailPageWrapper() {
+function DetailPage(){
+  const [notes,setNotes] = useState(null);
+  const [load, setLoad] = useState(true);
   const { id } = useParams();
-  return <DetailPage id={id} />;
-}
 
-class DetailPage extends React.Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      note: getNote(props.id)
-    };
+  useEffect(() => {
+    getNote(id).then(({ data }) => {
+      setNotes(data);
+      setLoad(false)
+    });
+  }, []);
+
+
+  if(load){
+    return <img src={loading} alt='loading'/>
   }
- 
-  render() {
-    if(this.state.note){
+  else{
+    if(notes){
       return (
         <section>
-          <NoteDetail {...this.state.note} />
+          <NoteDetail {...notes} />
         </section>
       );
     }
@@ -31,11 +34,42 @@ class DetailPage extends React.Component {
       return <NotFoundPage />
     }
   }
+  
+
+
 }
+
+// function DetailPageWrapper() {
+//   const { id } = useParams();
+//   return <DetailPage id={id} />;
+// }
+
+// class DetailPage extends React.Component {
+//   constructor(props) {
+//     super(props);
+    
+//     this.state = {
+//       note: getNote(props.id)
+//     };
+//   }
+ 
+//   render() {
+//     if(this.state.note){
+//       return (
+//         <section>
+//           <NoteDetail {...this.state.note} />
+//         </section>
+//       );
+//     }
+//     else{
+//       return <NotFoundPage />
+//     }
+//   }
+// }
 
 DetailPage.propType = {
   id: PropTypes.string.isRequired
 }
 
  
-export default DetailPageWrapper;
+export default DetailPage;

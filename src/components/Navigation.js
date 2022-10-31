@@ -11,6 +11,7 @@ function Navigation({authed, logout}) {
     <nav className="navigation">
       <ul className='nav-link'>
         <li><h1><Link to="/">{locale === 'id' ? 'Aplikasi Note' : 'Note App'}</Link></h1></li>
+        <li><h1><Link to="/sad">tes</Link></h1></li>
         <li><FaMoon /></li>
         <li><button onClick={toggleLocale}>{locale === 'id' ? 'Indonesia' : 'English'}</button></li>
         {

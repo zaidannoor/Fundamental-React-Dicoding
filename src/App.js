@@ -12,7 +12,7 @@ import { putAccessToken, getUserLogged } from './utils/network-data';
 import loading from './img/loading-gif.gif';
 import LocaleContext from './context/LocaleContext';
 function App() {
-  const [authedUser, setAuthedUser] = useState(null);
+  const [authedUser, setAuthedUser] = useState(localStorage.getItem('auth') || null);
   const [initializing, setInitializing] = useState(false);
   const [locale, setLocale] = useState(localStorage.getItem('locale') || 'id')
 
@@ -20,7 +20,10 @@ function App() {
     setInitializing(true)
     putAccessToken(accessToken);
     const { data } = await getUserLogged();
-    setAuthedUser(data)
+    setAuthedUser(() => {
+      return data;
+    })
+    localStorage.setItem('auth', data);
     setInitializing(false)
   }
 
@@ -42,9 +45,8 @@ function App() {
     setAuthedUser(() => {
       return null;
     })
+    localStorage.removeItem('auth');
   }
-
-  
 
   if (initializing) {
     return (
@@ -61,14 +63,14 @@ function App() {
         <main>
           {authedUser ?
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<HomePage authed={authedUser} />} />
               <Route path="/notes/:id" element={<DetailPage />} />
               <Route path="/add" element={<AddPage />} />
               <Route path="/archive" element={<ArchivePage />} />
-              <Route path='*' element={<NotFoundPage />} />
+              <Route path='*' element={<NotFoundPage authed={authedUser} />} />
             </Routes>
             : <Routes>
-                <Route path="*" element={<LoginPage loginSuccess={onLoginSuccess} />} />
+                <Route path="*" element={<LoginPage authed={authedUser} loginSuccess={onLoginSuccess} />} />
                 <Route path="/register" element={<RegisterPage />} />
               </Routes>
             }  

@@ -8,12 +8,14 @@ import {
 import NoteList from '../components/NoteList';
 import SearchBar from '../components/SearchBar';
 import loading from '../img/loading-gif.gif';
-
+import LocaleContext from '../context/LocaleContext';
 
 function ArchivePage(){
+    const { locale } = React.useContext(LocaleContext);
     const [notes,setNotes] = useState(null);
     const [keyword,setKeyword] = useState('');
     const [load, setLoad] = useState(true);
+
 
     /* Inisialisasi nilai Notes menggunakan react effect*/
     useEffect(() => {
@@ -51,7 +53,7 @@ function ArchivePage(){
 
     return (
         <section className='note-app'>
-            <h2>Archived Notes</h2>
+            <h2>{locale === 'id' ? 'Note terarsip' : 'Archived Notes'}</h2>
             <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler} />
             {load  
                 ? <img src={loading} alt='loading'/>

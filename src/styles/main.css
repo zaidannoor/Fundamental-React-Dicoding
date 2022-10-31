@@ -11,13 +11,10 @@
     --on-surface: #FFFFFF;
   }
   
-  /* [data-theme="light"] {
-    --background: #DDDDDD;
-    --suface: #FFFFFF;
-    --on-background: #333333;
-    --on-background-grey: #6d6d6d;
-    --on-surface: #333333;
-  } */
+  [data-theme='dark'] {
+    --font-color: #eee;
+    --background-color: #333;
+  }
   
   * {
     padding: 0;
@@ -250,7 +247,7 @@
     padding: 8px;
   }
 
-  .note-input__title::placeholder {
+  .note-input__title::placeholder, .note-input__body::placeholder {
     color: var(--on-background-grey);
   }
 
@@ -260,6 +257,7 @@
     border: 0;
     color: var(--on-background);
     font-family: 'Inter', sans-serif;
+    font-weight: bold;
     font-size: 24px;
     padding: 8px;
     margin-top: 10px;

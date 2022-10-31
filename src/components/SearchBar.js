@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
- 
+import LocaleContext from '../context/LocaleContext';
 function SearchBar({ keyword, keywordChange }) {
+    const { locale } = React.useContext(LocaleContext);
+
     return (
         <div className='search-bar'>
             <input
                 className=""
                 type="text"
-                placeholder="Cari berdasarkan nama"
+                placeholder={locale === 'id' ? 'Cari berdasrkan nama' : 'Search by name'}
                 value={keyword}
                 onChange={(event) => keywordChange(event.target.value)} />
         </div>

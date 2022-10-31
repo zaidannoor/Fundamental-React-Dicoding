@@ -114,7 +114,7 @@ async function getNote(id) {
   if (responseJson.status !== 'success') {
     return { error: true, data: null };
   }
-
+  console.log(responseJson.data)
   return { error: false, data: responseJson.data };
 }
 

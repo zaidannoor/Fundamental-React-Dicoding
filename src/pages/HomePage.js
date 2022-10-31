@@ -7,8 +7,10 @@ import {
 import NoteList from '../components/NoteList';
 import SearchBar from '../components/SearchBar';
 import loading from '../img/loading-gif.gif';
+import LocaleContext from '../context/LocaleContext';
 
-function HomePage(){
+function HomePage({authed}){
+    const { locale } = React.useContext(LocaleContext);
     const [notes,setNotes] = useState(null)
     const [keyword,setKeyword] = useState('')
     const [load, setLoad] = useState(true);
@@ -53,7 +55,7 @@ function HomePage(){
 
     return (
         <section className='note-app'>
-            <h2>Active Notes</h2>
+            <h2>{locale === 'id' ? 'Note Aktif' : 'Active Notes'}</h2>
             <SearchBar keyword={keyword} keywordChange={onKeywordChangeHandler} />
             {load
                 ? 
@@ -66,8 +68,10 @@ function HomePage(){
                 
                 
             }
+            
               
             {console.log(notes)}
+            {console.log(authed)}
         </section>
     )
 }
