@@ -4,7 +4,7 @@ import LoginInput from '../components/LoginInput';
 import {login} from '../utils/network-data';
 import LocaleContext from '../context/LocaleContext';
 
-function LoginPage({loginSuccess,authed}) {
+function LoginPage({loginSuccess}) {
   const {locale} = React.useContext(LocaleContext);
 
   async function onLogin({ email, password }) {
@@ -20,7 +20,6 @@ function LoginPage({loginSuccess,authed}) {
         <h2>{locale === 'id' ? 'Login Untuk Melanjutkan' : 'Please Login to Continue'}</h2>
         <LoginInput login={onLogin} />
         <p>{locale === 'id' ? 'Belum punya akun ? ' : "Doesn't have account ? "}<Link to="/register">{locale === 'id' ? 'Registrasi disini' : 'Register here' }</Link></p>
-        {console.log(authed)}
       </section>
       
     );

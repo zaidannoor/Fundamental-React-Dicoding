@@ -70,8 +70,6 @@ function ArchivePage(){
               />
 
             }
-              
-            {console.log(notes)}
         </section>
     )
 }

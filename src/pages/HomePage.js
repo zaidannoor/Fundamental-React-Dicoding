@@ -9,12 +9,13 @@ import SearchBar from '../components/SearchBar';
 import loading from '../img/loading-gif.gif';
 import LocaleContext from '../context/LocaleContext';
 
-function HomePage({authed}){
+function HomePage(){
     const { locale } = React.useContext(LocaleContext);
     const [notes,setNotes] = useState(null)
     const [keyword,setKeyword] = useState('')
     const [load, setLoad] = useState(true);
     let filteredNote = '';
+
     /* Inisialisasi nilai Notes menggunakan react effect*/
     useEffect(() => {
         getActiveNotes().then(({ data }) => {
@@ -32,8 +33,6 @@ function HomePage({authed}){
           setNotes(data)
           setLoad(false)
         } 
-        
-        
     }   
 
     async function onArchiveHandler(id) {
@@ -71,15 +70,8 @@ function HomePage({authed}){
                 notes={filteredNote} 
                 onDelete={onDeleteHandler} 
                 onArchive={onArchiveHandler}
-                />
-                
-                
+                />   
             }
-            
-              
-            {console.log(notes)}
-            {console.log(keyword)}
-            {console.log(filteredNote)}
         </section>
     )
 }

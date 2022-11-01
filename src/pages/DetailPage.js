@@ -34,38 +34,7 @@ function DetailPage(){
       return <NotFoundPage />
     }
   }
-  
-
-
 }
-
-// function DetailPageWrapper() {
-//   const { id } = useParams();
-//   return <DetailPage id={id} />;
-// }
-
-// class DetailPage extends React.Component {
-//   constructor(props) {
-//     super(props);
-    
-//     this.state = {
-//       note: getNote(props.id)
-//     };
-//   }
- 
-//   render() {
-//     if(this.state.note){
-//       return (
-//         <section>
-//           <NoteDetail {...this.state.note} />
-//         </section>
-//       );
-//     }
-//     else{
-//       return <NotFoundPage />
-//     }
-//   }
-// }
 
 DetailPage.propType = {
   id: PropTypes.string.isRequired

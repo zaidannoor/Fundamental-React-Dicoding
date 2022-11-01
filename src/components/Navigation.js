@@ -9,6 +9,7 @@ import language from '../img/language.png'
 function Navigation({authed, logout}) {
   const { locale, toggleLocale } = React.useContext(LocaleContext);
   const {theme, toggleTheme} = React.useContext(ThemeContext);
+  
   return (
     <nav className="navigation">
       <ul className='nav-link'>

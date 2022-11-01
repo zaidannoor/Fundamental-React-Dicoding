@@ -65,7 +65,8 @@ function App() {
     else{
       document.documentElement.setAttribute('data-theme', 'light');
     }
-}, [theme]);
+
+  }, [theme]);
 
   const onLogout = () => {
     setAuthedUser(() => {
@@ -92,14 +93,14 @@ function App() {
         <main>
           {authedUser ?
             <Routes>
-              <Route path="/" element={<HomePage authed={authedUser} />} />
+              <Route path="/" element={<HomePage />} />
               <Route path="/notes/:id" element={<DetailPage />} />
               <Route path="/add" element={<AddPage />} />
               <Route path="/archive" element={<ArchivePage />} />
-              <Route path='*' element={<NotFoundPage authed={authedUser} />} />
+              <Route path='*' element={<NotFoundPage />} />
             </Routes>
             : <Routes>
-                <Route path="*" element={<LoginPage authed={authedUser} loginSuccess={onLoginSuccess} />} />
+                <Route path="*" element={<LoginPage loginSuccess={onLoginSuccess} />} />
                 <Route path="/register" element={<RegisterPage />} />
               </Routes>
             }  
