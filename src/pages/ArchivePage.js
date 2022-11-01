@@ -15,7 +15,7 @@ function ArchivePage(){
     const [notes,setNotes] = useState(null);
     const [keyword,setKeyword] = useState('');
     const [load, setLoad] = useState(true);
-
+    let filteredNote = ''
 
     /* Inisialisasi nilai Notes menggunakan react effect*/
     useEffect(() => {
@@ -51,6 +51,12 @@ function ArchivePage(){
         setKeyword(keyword);
     }
 
+    if(!load){
+        filteredNote = notes.filter((note) => {
+            return note.title.toLowerCase().includes(keyword.toLowerCase());  
+        })
+    }
+
     return (
         <section className='note-app'>
             <h2>{locale === 'id' ? 'Note terarsip' : 'Archived Notes'}</h2>
@@ -58,7 +64,7 @@ function ArchivePage(){
             {load  
                 ? <img src={loading} alt='loading'/>
                 : <NoteList 
-                notes={notes} 
+                notes={filteredNote} 
                 onDelete={onDeleteHandler} 
                 unArchive={unarchiveHandler}
               />

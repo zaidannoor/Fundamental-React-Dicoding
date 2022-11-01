@@ -14,7 +14,7 @@ function HomePage({authed}){
     const [notes,setNotes] = useState(null)
     const [keyword,setKeyword] = useState('')
     const [load, setLoad] = useState(true);
-
+    let filteredNote = '';
     /* Inisialisasi nilai Notes menggunakan react effect*/
     useEffect(() => {
         getActiveNotes().then(({ data }) => {
@@ -45,13 +45,20 @@ function HomePage({authed}){
           setNotes(data);
           setLoad(false);
         } 
-        
-        
     }
 
     function onKeywordChangeHandler(keyword) {
         setKeyword(keyword);
     }
+
+    if(!load){
+        filteredNote = notes.filter((note) => {
+            return note.title.toLowerCase().includes(keyword.toLowerCase());  
+        })
+    }
+    
+    
+    
 
     return (
         <section className='note-app'>
@@ -61,7 +68,7 @@ function HomePage({authed}){
                 ? 
                 <img src={loading} alt='loading'/>
                 : <NoteList 
-                notes={notes} 
+                notes={filteredNote} 
                 onDelete={onDeleteHandler} 
                 onArchive={onArchiveHandler}
                 />
@@ -71,7 +78,8 @@ function HomePage({authed}){
             
               
             {console.log(notes)}
-            {console.log(authed)}
+            {console.log(keyword)}
+            {console.log(filteredNote)}
         </section>
     )
 }
