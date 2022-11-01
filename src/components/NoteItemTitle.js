@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 function NoteItemTitle({ id,title }) {
     return (
-      <Link to={`/notes/${id}`}><h3 className="note-item__title">{title}</h3></Link>
+      <h3 className="note-item__title"><Link to={`/notes/${id}`}>{title}</Link></h3>
         
     );
 }

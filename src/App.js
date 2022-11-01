@@ -1,4 +1,4 @@
-import React, { useState , useMemo } from 'react';
+import React, { useState , useMemo, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import HomePage from './pages/HomePage';
@@ -11,10 +11,13 @@ import RegisterPage from './pages/RegisterPage';
 import { putAccessToken, getUserLogged } from './utils/network-data';
 import loading from './img/loading-gif.gif';
 import LocaleContext from './context/LocaleContext';
+import ThemeContext from './context/ThemeContext';
+
 function App() {
   const [authedUser, setAuthedUser] = useState(localStorage.getItem('auth') || null);
   const [initializing, setInitializing] = useState(false);
   const [locale, setLocale] = useState(localStorage.getItem('locale') || 'id')
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
   async function onLoginSuccess({ accessToken }){
     setInitializing(true)
@@ -41,12 +44,37 @@ function App() {
     };
   }, [locale]);
 
+  const toggleTheme = () => {
+    setTheme((prevTheme) => {
+      return prevTheme === 'light' ? 'dark' : 'light';
+    });
+    localStorage.setItem('theme', theme);
+  }
+
+  const themeContextValue = useMemo(() => {
+    return {
+      theme,
+      toggleTheme
+    };
+  }, [theme]);
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+    else{
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+}, [theme]);
+
   const onLogout = () => {
     setAuthedUser(() => {
       return null;
     })
     localStorage.removeItem('auth');
   }
+
+
 
   if (initializing) {
     return (
@@ -55,6 +83,7 @@ function App() {
   }
 
   return (
+    <ThemeContext.Provider value={themeContextValue}>
     <LocaleContext.Provider value={localeContextValue}>
       <div className="app-container">
         <header className='note-app__header'>
@@ -78,6 +107,7 @@ function App() {
         <footer>R10. Zaidan Noor Irfan</footer>
       </div>
     </LocaleContext.Provider>
+    </ThemeContext.Provider>
   );
 }
 

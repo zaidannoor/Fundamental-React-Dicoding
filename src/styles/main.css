@@ -10,6 +10,16 @@
     --on-background-grey: #c7c7c7;
     --on-surface: #FFFFFF;
   }
+
+  [data-theme="dark"] {
+    background-color: #333;
+    color: #eee;
+  }
+
+  [data-theme="light"] {
+    background-color: gray;
+    color: black;
+  }
   
   * {
     padding: 0;
@@ -33,7 +43,6 @@
   }
   
   .app-container {
-    background-color: gray;
     min-height: 100vh;
     transition: all ease-in-out 0.5s;
     display: flex;
@@ -177,9 +186,13 @@
   .note-item__title {
     margin: 4px 0;
   }
+
+  .note-item__title a {
+    color: var(--on-background-grey);
+    margin: 4px 0;
+  }
   
   .note-item__createdAt {
-    color: var(--on-background-grey);
     font-size: 14px;
     margin: 4px 0;
   }
@@ -228,10 +241,6 @@
     font-size: 48px;
     margin-bottom: 8px;
     word-wrap: break-word;
-  }
-  
-  .note-detail__createdAt {
-    color: var(--on-background-grey)
   }
   
   .note-detail__body {
@@ -313,7 +322,7 @@
     }
   }
 
-  @media only screen and (max-width: 850px) {
+  @media only screen and (max-width: 855px) {
     .notes-list {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -327,7 +336,7 @@
     }
   }
 
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 705px) {
     .nav-link{
       flex-direction: column;
     }
