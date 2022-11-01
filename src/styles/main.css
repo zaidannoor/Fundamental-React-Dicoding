@@ -11,11 +11,6 @@
     --on-surface: #FFFFFF;
   }
   
-  [data-theme='dark'] {
-    --font-color: #eee;
-    --background-color: #333;
-  }
-  
   * {
     padding: 0;
     margin: 0;
@@ -51,7 +46,24 @@
     border-bottom: 1px solid black;
     background-color: lightgray;
   }
-  
+
+  .nav-link{
+    display: flex;
+    align-items: center;
+  }
+
+  .unauthed-menu{
+    display: flex;
+    flex: 1;
+  }
+
+  .unauthed-menu img{
+    cursor: pointer;
+    border-radius: 50%;
+    width: 40px;
+    margin: 0;
+  }
+
   header .navigation ul li {
     display: inline-block;
     font-size: 20px;
@@ -305,6 +317,23 @@
     .notes-list {
       grid-template-columns: repeat(2, 1fr);
     }
+    header .navigation ul li {
+      font-size: 16px;
+      margin: 0 15px;
+    }
+    .unauthed-menu img{
+      width: 30px;
+
+    }
+  }
+
+  @media only screen and (max-width: 700px) {
+    .nav-link{
+      flex-direction: column;
+    }
+    .unauthed-menu{
+      margin-bottom: 20px;
+    }
   }
 
   @media only screen and (max-width: 650px) {
@@ -314,21 +343,15 @@
   }
 
   @media only screen and (max-width: 565px) {
-    .nav-link{
-      display: flex;
-      flex-direction: column;
-    }
-
     header .navigation ul li {
       margin: 8px;
       text-align: center;
     }
-  
-    header .navigation ul li a {
-      padding: 3px;
-    }
+  }
 
-    .note-input__title{
-      font-size: 36px;
+  @media only screen and (max-width: 400px) {
+    .authed-menu{
+      display: flex;
+      flex-direction: column;
     }
   }
