@@ -32,12 +32,15 @@ function App() {
 
   const toggleLocale = () => {
     setLocale((prevLocale) => {
-      return prevLocale === 'id' ? 'en' : 'id';
+      const newLocale = prevLocale === 'id' ? 'en' : 'id';
+      localStorage.setItem('locale', newLocale);
+      return newLocale;
     });
-    localStorage.setItem('locale', locale);
+    
   }
 
   const localeContextValue = useMemo(() => {
+    
     return {
       locale,
       toggleLocale
@@ -46,9 +49,11 @@ function App() {
 
   const toggleTheme = () => {
     setTheme((prevTheme) => {
-      return prevTheme === 'light' ? 'dark' : 'light';
+      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', newTheme);
+      return newTheme;
     });
-    localStorage.setItem('theme', theme);
+    
   }
 
   const themeContextValue = useMemo(() => {

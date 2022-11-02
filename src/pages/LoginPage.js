@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import LoginInput from '../components/LoginInput';
 import {login} from '../utils/network-data';
@@ -24,5 +25,9 @@ function LoginPage({loginSuccess}) {
       
     );
 }
+
+LoginPage.propTypes = {
+  loginSuccess: PropTypes.func.isRequired,
+};
 
 export default LoginPage;

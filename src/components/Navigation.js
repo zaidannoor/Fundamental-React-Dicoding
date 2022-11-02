@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FiLogOut, FiSun } from 'react-icons/fi';
 import { FaMoon } from 'react-icons/fa';
@@ -27,11 +28,16 @@ function Navigation({authed, logout}) {
           </span>
           : ''
         }
-        
-        
       </ul>
     </nav>
   );
+}
+
+Navigation.propTypes = {
+  authed: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,]),
+  logout: PropTypes.func.isRequired
 }
  
 export default Navigation;
